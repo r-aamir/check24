@@ -1,0 +1,90 @@
+{% extends 'secure/home.html.twig' %}
+
+{% block articles %}
+    <div class="ArticlleList">
+        <div>
+            <script type="module">
+                import pagination from '/ListingPagination.js';
+                $(document).ready(function() {
+                    let navEl = $("#navEl");
+                    pagination.bind(navEl[0]).call(null, {{ page }}, {{ pages }});
+                    let selector = `[data-page='${ {{ page }} }']`;
+                    if ({{ page }} === 1) {
+                      selector += ',.nav_p';
+                    } else if ({{ page }} === {{ pages }}) {
+                      selector += ',.nav_n';
+                    }
+                    let eles = navEl.children();
+                    eles.filter('[data-page]').not(selector).on('click', function() {
+                        window.location = '?limit={{ limit }}&page=' + $(this).data('page');
+                    })
+                    eles.filter(selector).addClass('nav_d');
+                })
+            </script>
+        </div>
+
+        <table class="GridTable">
+            <tr class="GridTable__title">
+                <td width="1"></td>
+                <td width="44"
+                    class="{{ sortColumn == 1 ? 'selected' : '' }} GridTable__title_serial"
+                    width="{{ sortDef.width.1 }}"
+                >
+                    <a href="?limit={{ limit }}&sort={{ sortDef.order.1 }}1">{{ sortDef.label.1 }} {{ sortDef.order.1 == 'd' ? '▲' : '▼' }}</a>
+                </td>
+                <td
+                    class="{{ sortColumn == 2 ? 'selected' : '' }}"
+                    width="{{ sortDef.width.2 }}"
+                >
+                    <a href="?limit={{ limit }}&sort={{ sortDef.order.2 }}2">{{ sortDef.label.2 }} {{ sortDef.order.2 == 'd' ? '▲' : '▼' }}</a>
+                </td>
+                <td
+                    class="{{ sortColumn == 3 ? 'selected' : '' }}"
+                    width="{{ sortDef.width.3 }}"
+                >
+                    <a href="?limit={{ limit }}&sort={{ sortDef.order.3 }}3">{{ sortDef.label.3 }} {{ sortDef.order.3 == 'd' ? '▲' : '▼' }}</a>
+                </td>
+                <td style="width:60vw"
+                    class="{{ sortColumn == 4 ? 'selected' : '' }}"
+                    width="{{ sortDef.width.4 }}"
+                >
+                    <a href="?limit={{ limit }}&sort={{ sortDef.order.4 }}4">{{ sortDef.label.4 }} {{ sortDef.order.4 == 'd' ? '▲' : '▼' }}</a>
+                </td>
+                <td
+                    class="{{ sortColumn == 5 ? 'selected' : '' }}"
+                    width="{{ sortDef.width.5 }}"
+                >
+                    <a href="?limit={{ limit }}&sort={{ sortDef.order.5 }}5">{{ sortDef.label.5 }} {{ sortDef.order.5 == 'd' ? '▲' : '▼' }}</a>
+                </td>
+            </tr>
+            {% if list is empty %}
+                <tr class="GridTable__empty">
+                    <td colspan="5">Empty List</td>
+                </tr>
+            {% else %}
+                {% for row in list %}
+                <tr data-id="{{ row.id }}">
+                    <td>
+                        <a
+                            class="btn btn-edit"
+                            href="/article/{{ row.id }}"
+                        >Edit</a>
+                    </td>
+                    <td>{{ row.id }}</td>
+                    <td colspan="4" spacing="0" class="GridTable__content">
+                        <div class="GridTable__Article"">
+                            <div class="GridTable__Article_date">{{ row.article_date }}</div>
+                            <div class="GridTable__Article_content">{{ row.content }}</div>
+                        </div>
+                        <div class="GridTable__Article_author">{{ row.author }}</div>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+        <div class="Navigation">
+            <nav id="navEl" class="navpad"></nav>
+        </div>
+    </div>
+
+{% endblock %}

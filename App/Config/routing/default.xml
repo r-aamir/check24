@@ -4,7 +4,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <!-- Secure -->
     <route id="secure.home" path="/">
         <default key="_controller">App\Controller\Secure\IndexController::indexAction</default>
     </route>
@@ -13,6 +12,11 @@
 
     <route id="auth.login" path="/login">
         <default key="_controller">App\Controller\AuthenticationController::loginAction</default>
+        <default key="is-guest">1</default>
+    </route>
+
+    <route id="auth.logout" path="/logout">
+        <default key="_controller">App\Controller\AuthenticationController::logoutAction</default>
         <default key="is-guest">1</default>
     </route>
 

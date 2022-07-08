@@ -1,0 +1,157 @@
+body {
+  font-size: 15px;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI Adjusted","Segoe UI","Liberation Sans",sans-serif;
+}
+table { border-collapse: collapse; }
+tr, td { padding: 0; }
+
+.ArticlleList {
+  display: flex;
+  flex-direction: column;
+}
+
+.ArticlleList__toolbar {
+  display: flex;
+  margin: 20px 0;
+}
+
+.ArticlleList__toolbar * {
+  margin-right: 6px;
+}
+
+.GridTable__empty {
+  text-align: center;
+  font-style: italic;
+  color: #666666
+}
+
+.GridTable__title > *:first-child {
+  /* text-align: right; */
+}
+
+
+.GridTable .btn-edit {
+  margin-right: 20px;
+}
+
+.GridTable td
+{
+  border: 1px solid #ccc;
+  padding: 4px
+}
+
+/** Pagination **/
+
+.navpad {
+    padding: 0.8rem 0 0.8rem 0.8rem;
+    display: inline-flex;
+    align-items: center;
+}
+.navpad:empty {
+  display: none;
+}
+.navpad .nav_f,
+.navpad .nav_p,
+.navpad .nav_n,
+.navpad .nav_l{
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 12px;
+}
+.navpad a:not(.nav_sep) {
+    background-color: var(--green-powder);
+    border: 1px solid var(--green);
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    margin-right: 25px;
+}
+.navpad a:last-child {
+    margin: 0;
+}
+.navpad a.nav_s {
+  min-width: 16px;
+  padding: 14px;
+  text-align: center;
+}
+.navpad .nav_sep {
+  margin-right: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  float: left;
+}
+.navpad .nav_d:not(.nav_sep) {
+  background-color:#fff;
+  border: 1px solid #ccc;
+  cursor: default;
+  color: #a1a1a1;
+}
+
+.GridTable td.selected {
+  position: relative;
+}
+
+.GridTable td.selected:after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  background: #f00;
+  border-radius: 50%;
+  top: 50%;
+  transform: translate(4px,-50%);
+}
+
+.Homebar {
+  display: flex;
+  font-size: 24px;
+  border: 0 solid;
+  border-width: 1px 0 1px 0;
+  padding: 8px 18px 8px 0;
+}
+
+.Homebar a:last-child {
+  margin-left: auto;
+}
+
+.Homebar a {
+  margin-left: 20px;
+}
+
+.Navigation {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  background: #f0f0f0;
+}
+
+td.GridTable__Article {
+}
+
+.GridTable__Article {
+  background: #a0d4ff;
+  padding: 7px;
+}
+
+td.GridTable__content {
+  padding: 0;
+}
+
+.GridTable__Article_author {
+  background: #fff2f2;
+  padding: 6px;
+}
+
+.GridTable__Article_date {
+  display: flex;
+}
+
+.GridTable__Article_content {
+  background: rgba(255,255,255,0.3);
+  padding: 12px;
+  border-radius: 4px;
+  margin: 8px 0;
+}

@@ -2,8 +2,17 @@
 
 {% block body %}
 
-    <h1>Logged in succcessfully.</h1>
-    <a href="https://www.esmart.en/logout" class="Button">Logout</a>
-    
+    <div class="Homebar">
+        <a>Ubersicht</a>
+        {% if not (is_guest is defined) %}<a>Neuer Eintrag</a>{% endif %}
+        <a>Impressum</a>
+        {% if is_guest is defined %}
+            <a href="https://www.esmart.en/login" class="Button">Login</a>
+        {% else %}
+            <a href="https://www.esmart.en/logout" class="Button">Logout</a>
+        {% endif %}
+    </div>
+    {% block articles %}
 
+    {% endblock %}
 {% endblock %}

@@ -19,6 +19,15 @@ class AuthenticationController extends BaseController
         $this->viewRenderer = $viewRenderer;
     }
 
+    public function logoutAction(SessionAuthenticator $sessionAuthenticator)
+    {
+        if (null !== $user = $sessionAuthenticator->getAuthenticatedUser()) {
+            $sessionAuthenticator->unsetAuthenticatedUser();
+        }
+
+        return new RedirectResponse('/');
+    }
+
     public function loginAction(SessionAuthenticator $sessionAuthenticator, FormFactory $formFactory)
     {
         if ($sessionAuthenticator->getAuthenticatedUser() !== null) {

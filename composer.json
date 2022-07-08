@@ -7,6 +7,8 @@
         "doctrine/orm": "^2.12",
         "symfony/dotenv": "6.1.*",
         "symfony/form": "6.1.*",
+        "symfony/security-bundle": "6.1.*",
+        "symfony/twig-bundle": "6.1.*",
         "symfony/validator": "6.1.*",
         "symfony/yaml": "6.1.*",
         "twig/twig": "^3.4"
