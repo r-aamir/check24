@@ -30,45 +30,12 @@ class ArticleController extends BaseController
         return 'secure';
     }
 
-    public function indexAction(Request $request, EntityManagerInterface $entityManager) : Response
-    {
-        $sortDef          = [];
-        $orderBy          = ArticleDataGridTable::sortOrder($sortDef, $request->get('sort', ''));
-        $sortColumn = $orderBy[0];
-
-        /** @var ArticlesRepository $articlesRepository */
-        $articlesRepository = $entityManager->getRepository(Articles::class);
-
-        $paginator = new PaginationProvider($articlesRepository, 3);
-        $list      = $paginator->getPaginatedResultSet(
-            $request->get('page'),
-            $request->get('limit'),
-            null,
-            $sortDef['names'],
-            $orderBy
-        );
-        $page = $paginator->getPage();
-        $limit = $paginator->getLimit();
-        $pages = $paginator->getLastPage();
-        $total = $paginator->getTotal();
-
-        unset($sortDef['names']);
-
-        return $this->renderView(
-            'articles',
-            compact('sortDef', 'sortColumn', 'page', 'pages', 'limit', 'total', 'list')
-        );
-    }
-
     public function editAction(EntityManagerInterface $entityManager, FormFactory $formFactory)
     {
         $request = $this->getRequest();
 
         /** @var ArticlesRepository $articlesRepository */
         $articlesRepository = $entityManager->getRepository(Articles::class);
-
-        /** @var Users $authorEntity */
-        $authorEntity = $request->getSession()->get('auth.user');
 
         if ('create' === $articleId = $request->get('articleId')) {
             $articleId = null;
@@ -83,6 +50,9 @@ class ArticleController extends BaseController
 
         if ($editForm->isValid()) {
             $formData = $editForm->getForm()->getData();
+
+            /** @var Users $authorEntity */
+            $authorEntity = $request->getSession()->get('auth.user');
             $routeUrl = $this->getRoute('secure.home');
             if ($articleId === null) {
                 $articlesRepository->create($authorEntity->getId(), $formData);
