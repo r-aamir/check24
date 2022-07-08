@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<config xmlns="http://c24.net/schema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://c24.net/schema app-1.0.xsd">
+
+    <services>
+
+        <service id="request.context" class="Symfony\Component\Routing\RequestContext" public="true" />
+
+        <service id="router.fileLocator" class="Symfony\Component\Config\FileLocator" public="true">
+            <argument>%app.root_dir%/Config/routing</argument>
+        </service>
+
+        <service id="router.xmlLoader" class="Symfony\Component\Routing\Loader\XmlFileLoader">
+            <argument type="service" id="router.fileLocator"/>
+        </service>
+
+        <service id="router.main" class="Symfony\Component\Routing\Router" public="true">
+            <argument type="service" id="router.xmlLoader"/>
+            <argument>default.xml</argument>
+            <argument type="collection">
+                <argument key="cache_dir">%kernel.cache_dir%</argument>
+                <argument key="debug">%kernel.debug%</argument>
+            </argument>
+            <argument type="service" id="request.context"/>
+            <tag name="router.register" priority="0"/>
+        </service>
+
+        <service id="listener.router" class="Symfony\Component\HttpKernel\EventListener\RouterListener">
+            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="router.main"/>
+            <argument type="service" id="request_stack"/>
+        </service>
+
+    </services>
+
+</config>

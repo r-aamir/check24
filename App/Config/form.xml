@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<config xmlns="http://c24.net/schema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://c24.net/schema app-1.0.xsd">
+
+    <forms>
+        <form name="form_login" class="App\Form\LoginForm"/>
+        <form name="form.article_edit" class="App\Form\ArticleEditorForm"/>
+    </forms>
+
+</config>

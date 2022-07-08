@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<config xmlns="http://c24.net/schema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://c24.net/schema app-1.0.xsd">
+
+    <services>
+        <service id="Symfony\Component\DependencyInjection\ContainerInterface" alias="service_container"/>
+
+        <service id="view.renderer" class="App\Core\Service\ViewRenderer" public="true"/>
+        <service alias="security.password_hasher" id="Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface" public="true" />
+
+        <!-- Security & Authentication -->
+        <service id="session.authenticator" class="App\DependencyInjection\Authenticator\SessionAuthenticator" public="true"/>
+
+        <service id="authenticator" class="App\DependencyInjection\Authenticator\UserAuthenticator" public="true">
+            <argument type="service" id="App\Repository\UsersRepository" />
+            <argument type="service" id="security.password_hasher_factory" />
+        </service>
+
+        <!-- Form -->
+        <service id="Symfony\Component\Validator\ValidatorBuilder"></service>
+        <service id="forms.validator_builder" class="Symfony\Component\Validator\ValidatorBuilder"/>
+        
+        <service id="Symfony\Component\Form\FormFactoryBuilderInterface" class="Symfony\Component\Form\FormFactoryBuilder" />
+        <service id="form.factory_builder" alias="Symfony\Component\Form\FormFactoryBuilderInterface" />
+
+        <service id="form.factory" alias="App\Factory\FormFactory" public="true"/>
+
+        <!-- Inject service container in BaseController -->
+        <service id="App\Controller\ControllerResolver">
+            <argument type="service" id="service_container"/>
+        </service>
+        <service id="controller_resolver" alias="App\Controller\ControllerResolver"/>
+        <service id="Symfony\Component\HttpKernel\Controller\ControllerResolverInterface" alias="App\Controller\ControllerResolver"/>
+
+        <!-- Request, Event, and Exception Handlers -->
+        <service id="session.handler" alias="App\Handler\SessionHandler"/>
+        <service id="controller.handler" class="App\Handler\ControllerHandler"/>
+        <service id="exception.handler" class="App\Handler\ExceptionHandler" />
+    </services>
+</config>

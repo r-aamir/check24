@@ -1,0 +1,20 @@
+doctrine:
+    dbal:
+        default_connection:       CoreData
+        connections:
+            CoreData:
+                dbname:           test
+                user:             root
+                password:         12345
+                host:             localhost
+                server_version:   'mariadb-10.6.4'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            App:
+                is_bundle: false
+                dir: '%kernel.project_dir%/App/Model'
+                prefix: 'App\Model'
+                alias: App

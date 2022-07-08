@@ -1,0 +1,51 @@
+{
+    "name": "check/24",
+    "type": "project",
+    "require": {
+        "php": ">=8.1",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.12",
+        "symfony/dotenv": "6.1.*",
+        "symfony/form": "6.1.*",
+        "symfony/validator": "6.1.*",
+        "symfony/yaml": "6.1.*",
+        "twig/twig": "^3.4"
+    },
+    "require-dev": {
+        "opsway/psr12-strict-coding-standard": "^0.7.0",
+        "phpstan/phpstan": "^1.8",
+        "phpunit/phpunit": "^9.5",
+        "symfony/var-dumper": "6.1.*"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/",
+            "Src\\": "src/"
+        },
+        "files": [
+            "App/bootstrap.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\Unit\\": "tests/Unit",
+            "App\\Tests\\Functional\\": "tests/Functional"
+        }
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd"
+        },
+        "test-functional": [
+            "php bin/phpunit --configuration phpunit.xml.dist --testsuit functional"
+        ],
+        "cs": "phpcs --standard=OpsWayStrictPSR12CodingStandard",
+        "cs-fix": "phpcbf --ignore=*/Plugin/Enumeration.php --standard=OpsWayStrictPSR12CodingStandard App"
+    }
+}
