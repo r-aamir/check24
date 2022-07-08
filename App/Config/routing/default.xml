@@ -8,6 +8,11 @@
         <default key="_controller">App\Controller\Secure\IndexController::indexAction</default>
     </route>
 
+    <route id="secure.article_edit" path="/article/{articleId}">
+        <default key="_controller">App\Controller\Secure\ArticleController::editAction</default>
+        <requirement key="articleId">(\d+|create)</requirement>
+    </route>
+
     <!-- Authentication -->
 
     <route id="auth.login" path="/login">

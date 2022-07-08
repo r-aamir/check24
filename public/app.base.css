@@ -155,3 +155,23 @@ td.GridTable__content {
   border-radius: 4px;
   margin: 8px 0;
 }
+
+form[name="article_edit"] > div {
+  display: flex;
+  padding: 6px 0;
+}
+
+form[name="article_edit"] > div > label {
+  width: 140px;  
+}
+
+form[name="article_edit"] textarea {
+  width: calc(40vw - 140px);
+  min-width: 240px;
+  height: 100px;
+}
+
+form[name="article_edit"] button {
+  margin-left: 140px;  
+  padding: 6px 12px;
+}

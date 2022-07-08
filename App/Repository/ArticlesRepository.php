@@ -23,9 +23,25 @@ class ArticlesRepository extends BaseRepository implements PaginationEntityRepos
         parent::__construct($registry, Articles::class);
     }
 
-    public function create(array $data) : void
+    public function create(int $authorId, array $formData) : void
     {
-        pr($data);
+        $keys = ['content' => 1, 'title' => 1, 'image' => 1];
+        $bind = array_intersect_key($formData, $keys);
+        if (count($bind) !== 3) {
+            throw new BadRequestException();
+        }
+
+        $bind['id'] = $authorId;
+        $bind['date'] = date('Y-m-d');
+        $bind['cdate'] = date('Y-m-d H:i:s');
+        $bind['image'] = 'https://placeholder.com/';
+
+        $connection = $this->getEntityManager()->getConnection();
+        $sql = "INSERT INTO {$this->getTableName()} " . <<<'SQL'
+(author_id, title, content, image, article_date, created_at) VALUES (:id, :title, :content, :image, :date, :cdate)
+SQL;
+
+        $connection->executeStatement($sql, $bind);
     }
 
     public function update(int|string $articleId, string $title, string $content) : void
